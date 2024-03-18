@@ -121,8 +121,8 @@ public class VariableNamesTheme {
         System.out.println("\n2.boolean-переменные\n");
 
         //сотни равны?
-        boolean isHundredsEqual = false;
-        System.out.println("сотни равны?: " + isHundredsEqual);
+        boolean isEqualHundreds = false;
+        System.out.println("сотни равны?: " + isEqualHundreds);
 
         //компьютер включен?
         boolean isComputerOn = true;
