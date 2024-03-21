@@ -25,6 +25,7 @@ public class VariablesTheme {
         float fullPrice = penPrice + bookPrice;
         float discountFullPrice = fullPrice * 0.89F;
         float discountSum = fullPrice - discountFullPrice;
+
         System.out.println("общая стоимость без скидки: " + fullPrice);
         System.out.println("сумма скидки: " + discountSum);
         System.out.println("общая стоимость со скидкой: " + discountFullPrice);
@@ -37,21 +38,28 @@ public class VariablesTheme {
 
         System.out.println("\n4.Вывод min и max значений целых числовых типов");
         byte maxByte = 127;
+
         System.out.println("Byte:");
         System.out.println("Первоначальное значение: " + maxByte);
         System.out.println("После инкремента: " + ++maxByte);
         System.out.println("После декремента: " + --maxByte);
+
         short maxShort = 32_767;
+
         System.out.println("Short:");
         System.out.println("Первоначальное значение: " + maxShort);
         System.out.println("После инкремента: " + ++maxShort);
         System.out.println("После декремента: " + --maxShort);
+
         int maxInteger = 2_147_483_647;
+
         System.out.println("Integer:");
         System.out.println("Первоначальное значение: " + maxInteger);
         System.out.println("После инкремента: " + ++maxInteger);
         System.out.println("После декремента: " + --maxInteger);
+
         long maxLong = 9_223_372_036_854_775_807L;
+
         System.out.println("Long:");
         System.out.println("Первоначальное значение: " + maxLong);
         System.out.println("После инкремента: " + ++maxLong);
@@ -76,7 +84,7 @@ public class VariablesTheme {
         System.out.printf("новые значения: num1 = %d, num2 = %d%n", num1, num2);
 
         System.out.println("С помощью побитовой операции ^");
-        System.out.printf("новые значения: num1 = %d, num2 = %d%n", num1, num2);
+        System.out.printf("исходные значения: num1 = %d, num2 = %d%n", num1, num2);
         num1 ^= num2;
         num2 ^= num1;
         num1 ^= num2;
@@ -84,18 +92,27 @@ public class VariablesTheme {
 
         System.out.println("\n6.Вывод символов и их кодов");
         char dollar = '$';
+
         System.out.printf("код символа: %d, соответствующий символ: %c%n", 
                 (int) dollar, dollar);
+
         char asterisk = '*';
+
         System.out.printf("код символа: %d, соответствующий символ: %c%n", 
                 (int) asterisk, asterisk);
+
         char at = '@';
+
         System.out.printf("код символа: %d, соответствующий символ: %c%n", 
                 (int) at, at);
+
         char pipe = '|';
+
         System.out.printf("код символа: %d, соответствующий символ: %c%n", 
                 (int) pipe, pipe);
+
         char tilde = '~';
+        
         System.out.printf("код символа: %d, соответствующий символ: %c%n", 
                 (int) tilde, tilde);
 
@@ -105,6 +122,7 @@ public class VariablesTheme {
         char bracketLeft = '(';
         char bracketRight = ')';
         char underscore = '_';
+
         System.out.println("    " + slash + backslash);
         System.out.println("   " + slash + "  " + backslash);
         System.out.println("  " + slash + underscore + bracketLeft + " "
@@ -120,6 +138,7 @@ public class VariablesTheme {
         int ones = number % 10;
         int sumOfDigits = hundreds + tens + ones;
         int multiplicationOfDigits = hundreds * tens * ones;
+
         System.out.printf("Число %d содержит :%n  сотен - %d%n  десятков - %d%n  единиц - %d%n" +
                 "Сумма цифр = %d%nПроизведение = %d%n",
                 number, hundreds, tens, ones, sumOfDigits, multiplicationOfDigits);
@@ -129,6 +148,7 @@ public class VariablesTheme {
         int hh = timeInSeconds / 3600;
         int mm = (timeInSeconds % 3600) / 60;
         int ss = timeInSeconds % 60;
+
         System.out.printf("%d секунд в формате ЧЧ:ММ:СС %d:%d:%d",
                 timeInSeconds, hh, mm, ss);
     }
