@@ -2,7 +2,6 @@ public class IfElseStatementTheme {
     public static void main(String[] args) {
         System.out.println("1.Перевод псевдокода на язык Java");
         boolean isMale = true;
-
         if (!isMale) {
             System.out.println("пол: женский");
         } else {
@@ -10,7 +9,6 @@ public class IfElseStatementTheme {
         }
 
         int age = 29;
-
         if (age >= 18) {
             System.out.println("совершеннолетний");
         } else {
@@ -18,7 +16,6 @@ public class IfElseStatementTheme {
         }
 
         float height = 1.8F;
-
         if (height > 1.8) {
             System.out.println("великан");
         } else {
@@ -26,7 +23,6 @@ public class IfElseStatementTheme {
         }
 
         char firstLetterOfName = "Alex".charAt(0);
-
         if (firstLetterOfName == 'M') {
             System.out.println("Имя начинается на M");
         } else if (firstLetterOfName == 'I') {
@@ -116,7 +112,7 @@ public class IfElseStatementTheme {
 
         System.out.println("\n6.Подсчет суммы вклада и начисленных банком %");
         int depositAmount = 301_000;
-        int rate = 0;
+        int rate = 10;
 
         if (depositAmount < 300_000) {
             if (depositAmount < 100_000) {
@@ -124,13 +120,10 @@ public class IfElseStatementTheme {
             } else {
                 rate = 7;
             }
-        } else {
-            rate = 10;
         }
 
         float rateAmount = depositAmount * (rate / 100F);
         float depositAmountWithRate = depositAmount + rateAmount;
-
         System.out.printf("Сумма вклада: %d%nСумма начисленного %%: %.2f%n" +
                 "Итоговая сумма с %%: %.2f%n",
                 depositAmount, rateAmount, depositAmountWithRate);
@@ -160,7 +153,6 @@ public class IfElseStatementTheme {
 
         float avgGrade = (historyGrade + csGrade) / 2F;
         float avgGradePercent = (historyGradePercent + csGradePercent) / 2F;
-
         System.out.printf("Информатика: %d, %d%%%nИстория: %d, %d%%%n" +
                 "Средний балл по предметам: %.1f%nСредний %% по предметам: %.1f%n",
                 csGrade, csGradePercent, historyGrade, historyGradePercent,
