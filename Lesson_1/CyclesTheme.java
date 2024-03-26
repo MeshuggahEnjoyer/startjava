@@ -1,23 +1,23 @@
 public class CyclesTheme {
     public static void main(String[] args) {
         System.out.println("1.Подсчет суммы четных и нечетных чисел");
-        int rangeStart = -10;
-        int rangeEnd = 21;
+        int startRange = -10;
+        int endRange = 21;
         int sumEvenNumbers = 0;
         int sumOddNumbers = 0;
 
-        int rangeStartCopy = rangeStart;
+        int counter = startRange;
         do {
-            if (rangeStartCopy % 2 == 0) {
-                sumEvenNumbers += rangeStartCopy;
+            if (counter % 2 == 0) {
+                sumEvenNumbers += counter;
             } else {
-                sumOddNumbers += rangeStartCopy;
+                sumOddNumbers += counter;
             }
-            rangeStartCopy++;
-        } while (rangeStartCopy <= rangeEnd);
+            counter++;
+        } while (counter <= endRange);
 
         System.out.printf("В отрезке [%d, %d] сумма четных чисел = %d, а нечетных = %d%n",
-                rangeStart, rangeEnd, sumEvenNumbers, sumOddNumbers);
+                startRange, endRange, sumEvenNumbers, sumOddNumbers);
 
         System.out.println("\n2.Вывод чисел в порядке убывания");
         int num1 = 5;
@@ -25,16 +25,16 @@ public class CyclesTheme {
         int num3 = -1;
 
         int min = num1;
-        if (num2 < num1 && num2 < num3) {
+        if (num2 < min) {
             min = num2;
-        } else if (num3 < num1 && num3 < num2) {
+        } else if (num3 < min) {
             min = num3;
         }
 
         int max = num1;
-        if (num2 > num1 && num2 > num3) {
+        if (num2 > num1) {
             max = num2;
-        } else if (num3 > num1 && num3 > num2) {
+        } else if (num3 > max) {
             max = num3;
         }
 
@@ -47,35 +47,35 @@ public class CyclesTheme {
         int num4 = 1234;
         int sumOfDigits = 0;
 
-        int reversedNum4 = 0;
+        System.out.print("исходное число в обратном порядке: ");
+        int currentDigit = 0;
         while (num4 > 0) {
-            reversedNum4 = (reversedNum4 * 10) + (num4 % 10);
-            sumOfDigits += num4 % 10;
+            currentDigit = num4 % 10;
+            System.out.print(currentDigit);
+            sumOfDigits += currentDigit;
             num4 /= 10;
         }
-
-        System.out.printf("исходное число в обратном порядке: %d%n", reversedNum4);
-        System.out.printf("сумма цифр: %d%n", sumOfDigits);
+        System.out.printf("%nсумма цифр: %d%n", sumOfDigits);
 
         System.out.println("\n4.Вывод чисел в несколько строк");
-        int startRange = 1;
-        int endRange = 24;
-        int colCounter = 0;
+        startRange = 1;
+        endRange = 24;
+        int currentPlaceOfNumber = 0;
 
         for (int i = startRange; i < endRange; i++) {
             if (i % 2 > 0) {
                 System.out.printf("%5d", i);
-                colCounter++;
-            }
-            if (colCounter % 5 == 0) {
-                System.out.println();
+                currentPlaceOfNumber++;
+                if (currentPlaceOfNumber % 5 == 0) {
+                    System.out.println();
+                }
             }
         }
 
-        if (colCounter % 5 > 0) {
-            while (colCounter % 5 > 0) {
+        if (currentPlaceOfNumber % 5 > 0) {
+            while (currentPlaceOfNumber % 5 > 0) {
                 System.out.printf("%5d", 0);
-                colCounter++;
+                currentPlaceOfNumber++;
             }
         }
 
@@ -108,38 +108,38 @@ public class CyclesTheme {
         System.out.println();
 
         //Прямоугольный треугольник
-        int rowCounter = 0;
-        colCounter = 0;
-        while (rowCounter < 5) {
-            colCounter = rowCounter;
+        int currentRow = 0;
+        int amountOfSpaces = 0;
+        while (currentRow < 5) {
+            amountOfSpaces = currentRow;
 
-            while (colCounter < 5) {
+            while (amountOfSpaces < 5) {
                 System.out.print("#");
-                colCounter++;
+                amountOfSpaces++;
             }
 
-            rowCounter++;
+            currentRow++;
             System.out.println();
         }
         System.out.println();
 
         //Треугольник
-        rowCounter = 0;
+        currentRow = 0;
         do {
-            if (rowCounter < 2) {
-                colCounter = 4 - rowCounter;
+            if (currentRow < 2) {
+                amountOfSpaces = 4 - currentRow;
             } else {
-                colCounter = rowCounter;
+                amountOfSpaces = currentRow;
             }
 
             do {
                 System.out.print("$");
-                colCounter++;
-            } while (colCounter < 5);
+                amountOfSpaces++;
+            } while (amountOfSpaces < 5);
 
-            rowCounter++;
+            currentRow++;
             System.out.println();
-        } while (rowCounter < 5);
+        } while (currentRow < 5);
 
         System.out.println("\n7.Отображение ASCII-символов");
         System.out.printf("%-8s %-10s %-12s%n", "DECIMAL", "CHARACTER", "DESCRIPTION");
@@ -149,58 +149,22 @@ public class CyclesTheme {
             if (i >= 48 && i <= 96) {
                 continue;
             } else if ((i < 48 && i % 2 != 0) || (i > 96 && i % 2 == 0)) {
-                currentChar = (char) i;
-                System.out.printf("%4d %9c           %-25s%n",
-                    (int) currentChar, currentChar, Character.getName(currentChar));
+                System.out.printf("%4d %9c           %-25s%n", i, i, Character.getName(i));
             }
         }
 
         System.out.println("\n8.Проверка, является ли число палиндромом");
         int num6 = 1234321;
-        int numOfDigits = 0;
+        int reversedNum6 = 0;
 
-        //Кол-во цифр в исходном числе
+        //Получаем реверсивное число
         int num6Copy = num6;
         while (num6Copy > 0) {
+            reversedNum6 = (reversedNum6 * 10) + num6Copy % 10;
             num6Copy /= 10;
-            numOfDigits++;
         }
 
-        num6Copy = num6;
-        int tmp = 0;
-        int powOfTen = 0;
-        int lastDigit = 0;
-        int firstDigit = 0;
-        boolean isPalyndrome = true;
-
-        while (numOfDigits > 1) {
-            //Получение последней цифры
-            lastDigit = num6Copy % 10;
-
-            //Получение первой цифры 
-            tmp = num6Copy;
-            while (tmp > 0) {
-                firstDigit = tmp;
-                tmp /= 10;
-            }
-
-            //Если 1-я и последняя цифры равны
-            if (lastDigit == firstDigit) {
-                //получаем 10 в нужной степени
-                powOfTen = 1;
-                for (int i = 1; i <= (numOfDigits -1); i++) {
-                    powOfTen *= 10;
-                }
-                //и обрезаем цифры
-                num6Copy = (num6Copy % powOfTen) / 10;
-                numOfDigits -= 2;
-            } else {
-                isPalyndrome = false;
-                break;
-            }
-        }
-
-        if (isPalyndrome) {
+        if (num6 == reversedNum6) {
             System.out.printf("число %d является палиндромом%n", num6);
         } else {
             System.out.printf("число %d не является палиндромом%n", num6);
@@ -212,13 +176,12 @@ public class CyclesTheme {
         int rightSum = 0;
 
         int num7Copy = num7;
-        for (int i = 0; i < 3; i++) {
-            rightSum += num7Copy % 10;
-            num7Copy /= 10;
-        }
-
-        for (int i = 0; i < 3; i++) {
-            leftSum += num7Copy % 10;
+        for (int i = 0; i < 6; i++) {
+            if (i < 3) {
+                rightSum += num7Copy % 10;
+            } else {
+                leftSum += num7Copy % 10;
+            }
             num7Copy /= 10;
         }
 
