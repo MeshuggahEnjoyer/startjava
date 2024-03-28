@@ -48,9 +48,8 @@ public class CyclesTheme {
         int sumOfDigits = 0;
 
         System.out.print("исходное число в обратном порядке: ");
-        int currentDigit = 0;
         while (num4 > 0) {
-            currentDigit = num4 % 10;
+            int currentDigit = num4 % 10;
             System.out.print(currentDigit);
             sumOfDigits += currentDigit;
             num4 /= 10;
@@ -72,11 +71,9 @@ public class CyclesTheme {
             }
         }
 
-        if (currentPlaceOfNumber % 5 > 0) {
-            while (currentPlaceOfNumber % 5 > 0) {
-                System.out.printf("%5d", 0);
-                currentPlaceOfNumber++;
-            }
+        while (currentPlaceOfNumber % 5 > 0) {
+            System.out.printf("%5d", 0);
+            currentPlaceOfNumber++;
         }
 
         System.out.println("\n\n5.Проверка количества двоек числа на четность/нечетность");
@@ -144,11 +141,11 @@ public class CyclesTheme {
         System.out.println("\n7.Отображение ASCII-символов");
         System.out.printf("%-8s %-10s %-12s%n", "DECIMAL", "CHARACTER", "DESCRIPTION");
 
-        char currentChar = 0;
         for (int i = 33; i < 123; i++) {
             if (i >= 48 && i <= 96) {
                 continue;
-            } else if ((i < 48 && i % 2 != 0) || (i > 96 && i % 2 == 0)) {
+            }
+            if ((i < 48 && i % 2 != 0) || (i > 96 && i % 2 == 0)) {
                 System.out.printf("%4d %9c           %-25s%n", i, i, Character.getName(i));
             }
         }
@@ -185,18 +182,17 @@ public class CyclesTheme {
             num7Copy /= 10;
         }
 
+        String not = "не ";
         if (leftSum == rightSum) {
-            System.out.printf("Число %d является счастливым%n" +
-                    "Сумма цифр %d = %d, сумма цифр %d = %d%n", 
-                    num7, num7 / 1000, leftSum, num7 % 1000, rightSum);
-        } else {
-            System.out.printf("Число %d не является счастливым%n" +
-                    "Сумма цифр %d = %d, сумма цифр %d = %d%n", 
-                    num7, num7 / 1000, leftSum, num7 % 1000, rightSum);
+            not = "";
         }
+        
+        System.out.printf("Число %d %sявляется счастливым%n" +
+                    "Сумма цифр %d = %d, сумма цифр %d = %d%n", 
+                    num7, not, num7 / 1000, leftSum, num7 % 1000, rightSum);
 
         System.out.println("\n10.Отображение таблицы умножения Пифагора");
-        System.out.printf("%n%23S%n", "таблица пифагора");
+        System.out.printf("%n%23S%n", "таблица Пифагора");
         
         for (int i = 1; i <= 9; i++) {
             for (int j = 1; j <= 9; j++) {

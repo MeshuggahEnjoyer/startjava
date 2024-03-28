@@ -3,8 +3,8 @@ import java.util.Random;
 public class RpsGameFormatting {
     public static void main(String[] args) throws InterruptedException {
         //Игра Камень-Ножницы-Бумага
-        String rock ="R";
-        String scissors= "S";
+        String rock = "R";
+        String scissors = "S";
         String paper = "P" ;
 
         // Ход первого игрока
@@ -18,8 +18,8 @@ public class RpsGameFormatting {
         } else if (position1 > 33) {
             sign1 = scissors;
         }
-
-        System.out.println("Ход "+name1+ ": ");
+        
+        System.out.println("Ход " + name1 + ": ");
 
         for (int i = 0; i < 5; i++) {
             System.out.print(rock + "\r");
@@ -34,7 +34,7 @@ public class RpsGameFormatting {
 
         //Ход второго игрока
         String name2 = "WALLE";
-        int position2 = r.nextInt(1,100);
+        int position2 = r.nextInt(1, 100);
         String sign2 = rock;
 
         if (position2 > 66) {
@@ -43,7 +43,7 @@ public class RpsGameFormatting {
             sign2 = scissors;
         }
 
-        System.out.println("Ход " +name2 +": ");
+        System.out.println("Ход " + name2 + ": ");
 
         for (int i = 0; i < 5; i++) {
             System.out.print(rock + "\r");
@@ -60,7 +60,6 @@ public class RpsGameFormatting {
             System.out.println("Победила дружба!");
             return;
         }
-
 
         boolean isWinnerName1 = (sign1.equals(rock) && sign2.equals(scissors)) ||
                 (sign1.equals(scissors) && sign2.equals(paper)) ||
