@@ -183,13 +183,11 @@ public class CyclesTheme {
         }
 
         String not = "не ";
-        if (leftSum == rightSum) {
-            not = "";
-        }
+        if (leftSum == rightSum) not = "";
         
         System.out.printf("Число %d %sявляется счастливым%n" +
-                    "Сумма цифр %d = %d, сумма цифр %d = %d%n", 
-                    num7, not, num7 / 1000, leftSum, num7 % 1000, rightSum);
+                "Сумма цифр %d = %d, сумма цифр %d = %d%n", 
+                num7, not, num7 / 1000, leftSum, num7 % 1000, rightSum);
 
         System.out.println("\n10.Отображение таблицы умножения Пифагора");
         System.out.printf("%n%23S%n", "таблица Пифагора");
