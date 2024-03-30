@@ -5,23 +5,23 @@ public class Person {
     float weight = 75.5F;
     int age = 29;
 
-    void move(){
+    void move() {
         System.out.println("move");
     }
 
-    void sit(){
+    void sit() {
         System.out.println("sit");
     }
 
-    void run(){
+    void run() {
         System.out.println("run");
     }
 
-    void say(String phrase){
+    void say(String phrase) {
         System.out.println(phrase);
     }
 
-    void learnJava(){
+    void learnJava() {
         System.out.println("learnJava");
     }
 }
