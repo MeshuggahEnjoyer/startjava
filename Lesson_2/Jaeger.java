@@ -8,8 +8,8 @@ public class Jaeger {
 
     public Jaeger() {}
 
-    public Jaeger(String modelName, String mark, float height, float weight,
-            int strength, int armor) {
+    public Jaeger(String modelName, String mark, float height,
+            float weight, int strength, int armor) {
         this.modelName = modelName;
         this.mark = mark;
         this.height = height;
@@ -67,18 +67,18 @@ public class Jaeger {
     }
 
     public void move() {
-        System.out.println(this.modelName + " идет");
+        System.out.println(modelName + " идет");
     }
 
     public void scanKaiju() {
-        System.out.println(this.modelName + " сканирует кайдзю");
+        System.out.println(modelName + " сканирует кайдзю");
     }
 
     public void attack() {
-        if (this.modelName.equals("Cherno Alpha")) {
-            System.out.println(this.modelName + " активирует Incinerator turbines");
-        } else if (this.modelName.equals("Bracer Phoenix")) {
-            System.out.println(this.modelName + " активирует Vortex Cannon");
+        if (modelName.equals("Cherno Alpha")) {
+            System.out.println(modelName + " активирует Incinerator turbines");
+        } else if (modelName.equals("Bracer Phoenix")) {
+            System.out.println(modelName + " активирует Vortex Cannon");
         }
     }
 }

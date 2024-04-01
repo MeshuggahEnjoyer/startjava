@@ -18,8 +18,12 @@ public class CalculatorTest {
 
             System.out.println(calculator.calculate(a, b, sign));
 
-            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-            userAnswer = scanner.next();
+            do {
+                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+                userAnswer = scanner.next();
+            } while (!(userAnswer.equals("yes") || userAnswer.equals("no")));
+            
+            
         } while (userAnswer.equals("yes"));
     }
 }
