@@ -1,21 +1,21 @@
 public class Calculator {
     public float calculate(int a, int b, char sign) {
         switch (sign) {
-            case '+' :
+            case '+':
                 return a + b;
-            case '-' :
+            case '-':
                 return a - b;
-            case '*' :
+            case '*':
                 return a * b;
-            case '/' :
+            case '/':
                 return (float) a / b;
-            case '^' :
+            case '^':
                 int result = a;
                 for (int i = 1; i < b; i++) {
                     result *= a;
                 }
                 return result;
-            case '%' :
+            case '%':
                 return a % b;
             default:
                 System.out.println("Неизвестный оператор");

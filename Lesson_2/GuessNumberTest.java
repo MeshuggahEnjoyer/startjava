@@ -12,13 +12,7 @@ public class GuessNumberTest {
         String playerAnswer;
         do {
             GuessNumber game = new GuessNumber(player1, player2);
-
-            boolean isGameOver;
-            do {
-                player1.makeNextGuess(game);
-                player2.makeNextGuess(game);
-                isGameOver = game.move();
-            } while (!isGameOver);
+            game.startGame();
 
             do {
                 System.out.print("Хотите продолжить игру? [yes/no]: ");

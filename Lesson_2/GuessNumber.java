@@ -25,6 +25,14 @@ public class GuessNumber {
         return endRange;
     }
 
+    public void startGame() {
+        boolean isGameOver;
+            do {
+                moveOwner.makeNextGuess(this);
+                isGameOver = move();
+            } while (!isGameOver);
+    }
+
     public boolean move() {
         if (moveOwner.getNumber() == numberToGuess) {
             System.out.printf("%s, Вы победили! Загаданное число: %d%n%n",
