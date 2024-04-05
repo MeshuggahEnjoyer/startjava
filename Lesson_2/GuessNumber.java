@@ -3,7 +3,6 @@ import java.util.Random;
 public class GuessNumber {
     private Player player1;
     private Player player2;
-    private Player moveOwner;
     private int numberToGuess = -1;
     private int startRange = 1;
     private int endRange = 100;
@@ -14,44 +13,40 @@ public class GuessNumber {
 
         this.player1 = player1;
         this.player2 = player2;
-        moveOwner = player1;
     }
 
-    public int getStartRange() {
-        return startRange;
+    public void start() {
+        Player currentPlayer = player1;
+        boolean isGameFinished;
+        
+        do {
+            makeNextGuess(currentPlayer);
+            isGameFinished = isGuessed(currentPlayer);
+            currentPlayer = (currentPlayer == player1) ? player2 : player1;
+        } while (!isGameFinished);
     }
 
-    public int getEndRange() {
-        return endRange;
+    private void makeNextGuess(Player player) {
+        player.setNumber((startRange + endRange) / 2);
     }
 
-    public void startGame() {
-        boolean isGameOver;
-            do {
-                moveOwner.makeNextGuess(this);
-                isGameOver = move();
-            } while (!isGameOver);
-    }
+    public boolean isGuessed(Player currentPlayer) {
+        int playerGuess = currentPlayer.getNumber();
 
-    public boolean move() {
-        if (moveOwner.getNumber() == numberToGuess) {
+        if (playerGuess == numberToGuess) {
             System.out.printf("%s, Вы победили! Загаданное число: %d%n%n",
-                    moveOwner.getName(), moveOwner.getNumber());
+                    currentPlayer.getName(), playerGuess);
             return true;
-        } else if (moveOwner.getNumber() < numberToGuess) {
-            System.out.printf("%s, число %d меньше того, что загадал компьютер%n",
-                    moveOwner.getName(), moveOwner.getNumber());
-            startRange = moveOwner.getNumber() + 1;
-        } else if (moveOwner.getNumber() > numberToGuess) {
-            System.out.printf("%s, число %d больше того, что загадал компьютер%n",
-                    moveOwner.getName(), moveOwner.getNumber());
-            endRange = moveOwner.getNumber() - 1;
         }
 
-        if (moveOwner == player1) {
-            moveOwner = player2;
-        } else {
-            moveOwner = player1;
+        if (playerGuess < numberToGuess) {
+            System.out.printf("%s, число %d меньше того, что загадал компьютер%n",
+                    currentPlayer.getName(), playerGuess);
+            startRange = playerGuess + 1;
+        } else if (playerGuess > numberToGuess) {
+            System.out.printf("%s, число %d больше того, что загадал компьютер%n",
+                    currentPlayer.getName(), playerGuess);
+            endRange = playerGuess - 1;
         }
 
         return false;

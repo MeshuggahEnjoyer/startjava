@@ -14,7 +14,7 @@ public class Player {
         return number;
     }
 
-    public void makeNextGuess(GuessNumber currentGame) {
-        number = (currentGame.getStartRange() + currentGame.getEndRange()) / 2;
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
