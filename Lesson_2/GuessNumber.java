@@ -1,15 +1,16 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class GuessNumber {
     private Player player1;
     private Player player2;
-    private int numberToGuess = -1;
+    private int numberToGuess;
     private int startRange = 1;
     private int endRange = 100;
     
     public GuessNumber(Player player1, Player player2) {
         Random r = new Random();
-        numberToGuess = r.nextInt(1, 100);
+        numberToGuess = r.nextInt(startRange, endRange);
 
         this.player1 = player1;
         this.player2 = player2;
@@ -27,7 +28,14 @@ public class GuessNumber {
     }
 
     private void makeNextGuess(Player player) {
-        player.setNumber((startRange + endRange) / 2);
+        Scanner scanner = new Scanner(System.in);
+        int playerGuess = 0;
+
+        do {
+            System.out.printf("Введите число в диапазоне %d-%d: ", startRange, endRange);
+            playerGuess = scanner.nextInt();
+            player.setNumber(playerGuess);
+        } while (!(playerGuess > 0 && playerGuess <= 100));
     }
 
     public boolean isGuessed(Player currentPlayer) {
@@ -42,11 +50,9 @@ public class GuessNumber {
         if (playerGuess < numberToGuess) {
             System.out.printf("%s, число %d меньше того, что загадал компьютер%n",
                     currentPlayer.getName(), playerGuess);
-            startRange = playerGuess + 1;
         } else if (playerGuess > numberToGuess) {
             System.out.printf("%s, число %d больше того, что загадал компьютер%n",
                     currentPlayer.getName(), playerGuess);
-            endRange = playerGuess - 1;
         }
 
         return false;
