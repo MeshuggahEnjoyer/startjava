@@ -1,4 +1,6 @@
 *.class
 out/
+.idea/
 options
 optionsj
+StartJava.iml
