@@ -9,8 +9,8 @@ public class ArraysTheme {
         calculateFactorial();
         resetArrayElements();
         printLadderOfChars();
-        fillWithRandomNumbers();
-        hangMan();
+        fillArrayUniqueNumbers();
+        hangmanGame();
     }
 
     private static void reverseArray() {
@@ -19,22 +19,26 @@ public class ArraysTheme {
         int length = numbers.length;
 
         System.out.print("До реверса: ");
-        print(numbers);
+        printWithBrackets(numbers);
 
         for (int i = 0; i < length; i++) {
-            length--;
             int swap = numbers[i];
-            numbers[i] = numbers[length];
+            numbers[i] = numbers[--length];
             numbers[length] = swap;
         }
 
         System.out.print("\nПосле реверса: ");
-        print(numbers);
-        System.out.println();
+        printWithBrackets(numbers);
+    }
+
+    private static void printWithBrackets(int[] array) {
+        System.out.print("[");
+        print(array);
+        System.out.print("]");
     }
 
     private static void calculateFactorial() {
-        System.out.println("\n2.Вычисление факториала");
+        System.out.println("\n\n2.Вычисление факториала");
         int[] multipliers = new int[10];
         int length = multipliers.length;
 
@@ -44,16 +48,15 @@ public class ArraysTheme {
         }
 
         int factorial = 1;
-        String resultOutput = "1";
-        for (int i = 2; i <= length - 2; i++) {
-            factorial *= i;
-            resultOutput += (i != length - 2) ? (" * " + i) : (" * " + i + " = " + factorial);
+        System.out.print("1");
+        for (int i = 2; i < length; i++) {
+            factorial *= i - 1;
+            System.out.print((i != length - 1) ? (" * " + i) : (" = " + factorial));
         }
-        System.out.println(resultOutput);
     }
 
     private static void resetArrayElements() {
-        System.out.println("\n3.Удаление элементов массива");
+        System.out.println("\n\n3.Удаление элементов массива");
         double[] randomDoubles = new double[15];
         int length = randomDoubles.length;
 
@@ -80,28 +83,27 @@ public class ArraysTheme {
 
     private static void printLadderOfChars() {
         System.out.println("\n4.Вывод алфавита лесенкой");
-        char[] chars = new char[26];
-        char currentChar = 65;
+        char[] alphabet = new char[26];
+        int length = alphabet.length;
 
         // Заполнение массива
-        for (int i = 0; i < chars.length; i++) {
-            chars[i] = currentChar;
-            currentChar++;
+        for (int i = 0; i < alphabet.length; i++) {
+            alphabet[i] = (char) ('A' + i);
         }
 
         // Вывод лесенки
         int currentRow = 0;
-        int lastCharacterIndex = chars.length - 1;
-        while (currentRow < 26) {
+        int lastCharacterIndex = alphabet.length - 1;
+        while (currentRow < length) {
             for (int i = lastCharacterIndex; i >= (lastCharacterIndex - currentRow); i--) {
-                System.out.printf("%s", chars[i]);
+                System.out.printf("%s", alphabet[i]);
             }
             currentRow++;
             System.out.println();
         }
     }
 
-    private static void fillWithRandomNumbers() {
+    private static void fillArrayUniqueNumbers() {
         System.out.println("\n5.Заполнение массива уникальными числами");
         int[] uniqueNumbers = new int[30];
         int length = uniqueNumbers.length;
@@ -111,76 +113,85 @@ public class ArraysTheme {
             boolean hasEqualNumber;
             do {
                 hasEqualNumber = false;
-                uniqueNumbers[i] = 60 + (int) (Math.random() * 40);
+                int randomInteger = 60 + (int) (Math.random() * 40);
 
                 for (int j = 0; j < i; j++) {
-                    if (uniqueNumbers[i] == uniqueNumbers[j]) {
+                    if (randomInteger == uniqueNumbers[j]) {
                         hasEqualNumber = true;
                         break;
                     }
                 }
-            } while (hasEqualNumber);
 
+                if (!hasEqualNumber) {
+                    uniqueNumbers[i] = randomInteger;
+                }
+            } while (hasEqualNumber);
         }
         // Вывод массива
         Arrays.sort(uniqueNumbers);
         print(uniqueNumbers);
     }
 
-    private static void hangMan() {
+    private static void hangmanGame() {
         System.out.println("\n6.Игра “Виселица”");
-        String[] words = {"Шахматы", "Игра", "Виселица", "Массив", "Геймпад"};
-        String wordToGuess = words[(int) (Math.random() * 5)];
+        String[] words = {"ШАХМАТЫ", "ИГРА", "ВИСЕЛИЦА", "МАССИВ", "ГЕЙМПАД"};
+        String wordToGuess = words[(int) (Math.random() * words.length)];
         char[] wordAsArray = wordToGuess.toCharArray();
         char[] mask = new char[wordAsArray.length];
-
-        // заполняем маску
         Arrays.fill(mask, '_');
-        print(mask);
 
         // стартуем игру
-        int attempts = 5;
+        String[] gallows = new String[6];
+        gallows[0] = "__________";
+        gallows[1] = "        |";
+        gallows[2] = "        O";
+        gallows[3] = "       /|\\ ";
+        gallows[4] = "        |";
+        gallows[5] = "       / \\ ";
+
+        int attemptsLeft = gallows.length;
         boolean gameFinished = false;
-        char[] wrongletters = new char[20];
+        String wrongletters = "";
+        Scanner scanner = new Scanner(System.in);
         do {
-            Scanner scanner = new Scanner(System.in);
             boolean isWrongGuess = true;
 
-            System.out.print("\nВведите букву: ");
-            char guessedLetter = scanner.next().toCharArray()[0];
+            print(mask);
+            System.out.print("Введите букву: ");
+            char guessedLetter = Character.toUpperCase(scanner.next().charAt(0));
 
             // если буква верная - заносим в маску
             for (int i = 0; i < wordAsArray.length; i++) {
-                if (Character.toLowerCase(wordAsArray[i]) == Character.toLowerCase(guessedLetter)) {
-                    mask[i] = Character.toUpperCase(guessedLetter);
+                if (wordAsArray[i] == guessedLetter) {
+                    mask[i] = guessedLetter;
                     isWrongGuess = false;
                 }
             }
-            print(mask);
 
             if (isWrongGuess) {
-                // Записываем ошибочную букву в соотв. массив
-                for (int i = 0; i < wrongletters.length; i++) {
-                    if (wrongletters[i] == '\u0000') {
-                        wrongletters[i] = Character.toUpperCase(guessedLetter);
-                        attempts--;
-                        break;
-                    } else if (Character.toUpperCase(wrongletters[i]) == Character.toUpperCase(guessedLetter)) {
-                        break;
-                    }
+                // Записываем ошибочную букву в wrongletters
+                if (wrongletters.indexOf(guessedLetter) == -1) {
+                    wrongletters += guessedLetter + " ";
+                    attemptsLeft--;
                 }
-            } else if (attempts < 5) {
-                attempts++;
+            } else if (attemptsLeft < gallows.length) {
+                attemptsLeft++;
             }
 
             System.out.print("Ошибочные буквы: ");
-            print(wrongletters);
-            System.out.printf("Осталось попыток: %d%n", attempts);
-            printGallows(attempts);
-            gameFinished = !Arrays.toString(mask).contains("_");
-        } while (attempts != 0 && !gameFinished);
+            System.out.println(wrongletters);
+            System.out.printf("Осталось попыток: %d%n", attemptsLeft);
 
-        if (attempts == 0) {
+            // вывод виселицы
+            for (int i = 0; i < gallows.length - attemptsLeft; i++) {
+                System.out.println(gallows[i]);
+            }
+            System.out.println();
+
+            gameFinished = !Arrays.toString(mask).contains("_");
+        } while (attemptsLeft != 0 && !gameFinished);
+
+        if (attemptsLeft == 0) {
             System.out.println("YOU DIED");
             System.out.printf("Загаданное слово: %s", wordToGuess);
         } else if (gameFinished) {
@@ -222,44 +233,5 @@ public class ArraysTheme {
             }
         }
         System.out.println();
-    }
-
-    private static void printGallows(int attempts) {
-        switch (attempts) {
-            case 0:
-                System.out.println("__________");
-                System.out.println("        |");
-                System.out.println("        O");
-                System.out.println("       /|\\ ");
-                System.out.println("        |");
-                System.out.println("       / \\ ");
-                break;
-            case 1:
-                System.out.println("__________");
-                System.out.println("        |");
-                System.out.println("        O");
-                System.out.println("       /|\\ ");
-                System.out.println("        |");
-                break;
-            case 2:
-                System.out.println("__________");
-                System.out.println("        |");
-                System.out.println("        O");
-                System.out.println("       /|\\ ");
-                break;
-            case 3:
-                System.out.println("__________");
-                System.out.println("        |");
-                System.out.println("        O");
-                System.out.println("        |  ");
-                break;
-            case 4:
-                System.out.println("__________");
-                System.out.println("        |");
-                System.out.println("        O");
-                break;
-            default:
-                break;
-        }
     }
 }
