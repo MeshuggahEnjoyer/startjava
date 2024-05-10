@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArraysTheme {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         reverseArray();
         calculateFactorial();
         resetArrayElements();
         printLadderOfChars();
         fillArrayUniqueNumbers();
         hangmanGame();
+        typewriter();
     }
 
     private static void reverseArray() {
@@ -48,15 +49,15 @@ public class ArraysTheme {
         }
 
         int factorial = 1;
-        System.out.print("1");
-        for (int i = 2; i < length; i++) {
-            factorial *= i - 1;
-            System.out.print((i != length - 1) ? (" * " + i) : (" = " + factorial));
+        for (int i = 1; i < length - 1; i++) {
+            factorial *= i;
+            System.out.print((i != length - 2) ? (i + " * ") : i);
         }
+        System.out.println(" = " + factorial);
     }
 
     private static void resetArrayElements() {
-        System.out.println("\n\n3.Удаление элементов массива");
+        System.out.println("\n3.Удаление элементов массива");
         double[] randomDoubles = new double[15];
         int length = randomDoubles.length;
 
@@ -92,13 +93,11 @@ public class ArraysTheme {
         }
 
         // Вывод лесенки
-        int currentRow = 0;
         int lastCharacterIndex = alphabet.length - 1;
-        while (currentRow < length) {
-            for (int i = lastCharacterIndex; i >= (lastCharacterIndex - currentRow); i--) {
-                System.out.printf("%s", alphabet[i]);
+        for (int i = 0; i < alphabet.length; i++) {
+            for (int j = lastCharacterIndex; j >= (lastCharacterIndex - i); j--) {
+                System.out.print(alphabet[j]);
             }
-            currentRow++;
             System.out.println();
         }
     }
@@ -110,22 +109,22 @@ public class ArraysTheme {
 
         // Заполнение массива
         for (int i = 0; i < length; i++) {
-            boolean hasEqualNumber;
+            boolean isUnique;
             do {
-                hasEqualNumber = false;
-                int randomInteger = 60 + (int) (Math.random() * 40);
+                isUnique = true;
+                int randomNumber = 60 + (int) (Math.random() * 40);
 
                 for (int j = 0; j < i; j++) {
-                    if (randomInteger == uniqueNumbers[j]) {
-                        hasEqualNumber = true;
+                    if (randomNumber == uniqueNumbers[j]) {
+                        isUnique = false;
                         break;
                     }
                 }
 
-                if (!hasEqualNumber) {
-                    uniqueNumbers[i] = randomInteger;
+                if (isUnique) {
+                    uniqueNumbers[i] = randomNumber;
                 }
-            } while (hasEqualNumber);
+            } while (!isUnique);
         }
         // Вывод массива
         Arrays.sort(uniqueNumbers);
@@ -141,17 +140,11 @@ public class ArraysTheme {
         Arrays.fill(mask, '_');
 
         // стартуем игру
-        String[] gallows = new String[6];
-        gallows[0] = "__________";
-        gallows[1] = "        |";
-        gallows[2] = "        O";
-        gallows[3] = "       /|\\ ";
-        gallows[4] = "        |";
-        gallows[5] = "       / \\ ";
+        String[] gallows = {"__________", "        |", "        O", "       /|\\ ", "        |", "       / \\ "};
 
         int attemptsLeft = gallows.length;
         boolean gameFinished = false;
-        String wrongletters = "";
+        StringBuilder wrongletters = new StringBuilder();
         Scanner scanner = new Scanner(System.in);
         do {
             boolean isWrongGuess = true;
@@ -160,18 +153,21 @@ public class ArraysTheme {
             System.out.print("Введите букву: ");
             char guessedLetter = Character.toUpperCase(scanner.next().charAt(0));
 
-            // если буква верная - заносим в маску
-            for (int i = 0; i < wordAsArray.length; i++) {
-                if (wordAsArray[i] == guessedLetter) {
-                    mask[i] = guessedLetter;
-                    isWrongGuess = false;
+            // если буква отсутствует в маске
+            if (String.valueOf(mask).indexOf(guessedLetter) == -1) {
+                for (int i = 0; i < wordAsArray.length; i++) {
+                    // если буква верная - заносим в маску
+                    if (wordAsArray[i] == guessedLetter) {
+                        isWrongGuess = false;
+                        mask[i] = guessedLetter;
+                    }
                 }
             }
 
+            // если ошибочная - записываем в wrongletters
             if (isWrongGuess) {
-                // Записываем ошибочную букву в wrongletters
-                if (wrongletters.indexOf(guessedLetter) == -1) {
-                    wrongletters += guessedLetter + " ";
+                if (wrongletters.indexOf(String.valueOf(guessedLetter)) == -1) {
+                    wrongletters.append(guessedLetter).append(" ");
                     attemptsLeft--;
                 }
             } else if (attemptsLeft < gallows.length) {
@@ -188,7 +184,7 @@ public class ArraysTheme {
             }
             System.out.println();
 
-            gameFinished = !Arrays.toString(mask).contains("_");
+            gameFinished = wordToGuess.equals(String.valueOf(mask));
         } while (attemptsLeft != 0 && !gameFinished);
 
         if (attemptsLeft == 0) {
@@ -196,6 +192,66 @@ public class ArraysTheme {
             System.out.printf("Загаданное слово: %s", wordToGuess);
         } else if (gameFinished) {
             System.out.println("YOU WON");
+        }
+    }
+
+    private static void typewriter() throws InterruptedException {
+        System.out.println("\n7.Вывод текста с эффектом пишущей машинки");
+        String text = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
+                "- James Gosling";
+        String text1 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
+                "- Robert Martin";
+        String[] words = text.split("[ ,.?!:;\"\\-]");
+
+        // Определяем самое короткое/длинное слова
+        String shortestWord = words[0];
+        String longestWord = words[0];
+        for (int i = 1; i < words.length; i++) {
+            if (!words[i].isBlank()) {
+                if (words[i].length() < shortestWord.length()) {
+                    shortestWord = words[i];
+                } else if (words[i].length() > longestWord.length()) {
+                    longestWord = words[i];
+                }
+            }
+        }
+
+        // Если самое короткое слово - это одна буква, то возникают проблемы при использовании IndexOf
+        // другого решения я не придумал
+        int shortestWordStartIndex = 0;
+        int fromIndex = 0;
+        boolean isWordFound = false;
+        while (!isWordFound) {
+            // ищем слово в строке
+            shortestWordStartIndex = text.indexOf(shortestWord, fromIndex);
+            // Если слева от искомой подстроки(или символа) - пробел, а после нее НЕ буква, то подстрока - слово
+            if (!Character.isLetter(text.toCharArray()[shortestWordStartIndex + shortestWord.length()]) && text.toCharArray()[shortestWordStartIndex - 1] == ' ') {
+                isWordFound = true;
+            } else {
+                // иначе, меняем fromIndex и ищем снова
+                fromIndex = ++shortestWordStartIndex;
+            }
+        }
+
+        int longestWordStartIndex = text.indexOf(longestWord);
+        for (int i = 0; i < text.toCharArray().length; i++) {
+            // если в строке короткое слово расположено перед длинным
+            if (longestWordStartIndex - shortestWordStartIndex > 0) {
+                //то от начала короткого слова до конца длинного печатаем UpperCase'ом
+                if (i >= shortestWordStartIndex && i <= longestWordStartIndex + longestWord.length()) {
+                    System.out.print(Character.toUpperCase(text.toCharArray()[i]));
+                    Thread.sleep(50);
+                    continue;
+                }
+            } else {
+                if (i >= longestWordStartIndex && i <= shortestWordStartIndex + shortestWord.length()) {
+                    System.out.print(Character.toUpperCase(text.toCharArray()[i]));
+                    Thread.sleep(50);
+                    continue;
+                }
+            }
+            System.out.print(text.toCharArray()[i]);
+            Thread.sleep(50);
         }
     }
 
