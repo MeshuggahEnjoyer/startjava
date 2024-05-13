@@ -50,14 +50,14 @@ public class ArraysTheme {
 
         int factorial = 1;
         for (int i = 1; i < length - 1; i++) {
-            factorial *= i;
-            System.out.print((i != length - 2) ? (i + " * ") : i);
+            factorial *= multipliers[i];
+            System.out.print(multipliers[i]);
+            System.out.print((multipliers[i] != length - 2) ? (" * ") : " = " + factorial);
         }
-        System.out.println(" = " + factorial);
     }
 
     private static void resetArrayElements() {
-        System.out.println("\n3.Удаление элементов массива");
+        System.out.println("\n\n3.Удаление элементов массива");
         double[] randomDoubles = new double[15];
         int length = randomDoubles.length;
 
@@ -69,23 +69,22 @@ public class ArraysTheme {
 
         // изменение элементов массива
         double middleNumber = randomDoubles[length / 2];
-        int deletedNumbersAmount = 0;
+        int resettedNumbersAmount = 0;
         for (int i = 0; i < length; i++) {
             if (randomDoubles[i] > middleNumber) {
                 randomDoubles[i] = 0;
-                deletedNumbersAmount++;
+                resettedNumbersAmount++;
             }
         }
 
         System.out.println();
         print(randomDoubles);
-        System.out.printf("Количество обнуленных ячеек: %s%n", deletedNumbersAmount);
+        System.out.printf("Количество обнуленных ячеек: %s%n", resettedNumbersAmount);
     }
 
     private static void printLadderOfChars() {
         System.out.println("\n4.Вывод алфавита лесенкой");
         char[] alphabet = new char[26];
-        int length = alphabet.length;
 
         // Заполнение массива
         for (int i = 0; i < alphabet.length; i++) {
@@ -139,8 +138,13 @@ public class ArraysTheme {
         char[] mask = new char[wordAsArray.length];
         Arrays.fill(mask, '_');
 
-        // стартуем игру
-        String[] gallows = {"__________", "        |", "        O", "       /|\\ ", "        |", "       / \\ "};
+        String[] gallows = {
+                "__________",
+                "        |",
+                "        O",
+                "       /|\\ ",
+                "        |",
+                "       / \\ "};
 
         int attemptsLeft = gallows.length;
         boolean gameFinished = false;
@@ -150,6 +154,7 @@ public class ArraysTheme {
             boolean isWrongGuess = true;
 
             print(mask);
+            System.out.printf("Осталось попыток: %d%n", attemptsLeft);
             System.out.print("Введите букву: ");
             char guessedLetter = Character.toUpperCase(scanner.next().charAt(0));
 
@@ -176,7 +181,6 @@ public class ArraysTheme {
 
             System.out.print("Ошибочные буквы: ");
             System.out.println(wrongletters);
-            System.out.printf("Осталось попыток: %d%n", attemptsLeft);
 
             // вывод виселицы
             for (int i = 0; i < gallows.length - attemptsLeft; i++) {
@@ -201,18 +205,20 @@ public class ArraysTheme {
                 "- James Gosling";
         String text1 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        String[] words = text.split("[ ,.?!:;\"\\-]");
+        String textOnlyLetters = text.replaceAll("[^a-zA-Zа-яА-Я+]"," ");;
+        String[] words = textOnlyLetters.split(" ");
 
         // Определяем самое короткое/длинное слова
         String shortestWord = words[0];
         String longestWord = words[0];
-        for (int i = 1; i < words.length; i++) {
-            if (!words[i].isBlank()) {
-                if (words[i].length() < shortestWord.length()) {
-                    shortestWord = words[i];
-                } else if (words[i].length() > longestWord.length()) {
-                    longestWord = words[i];
-                }
+        for (String word : words) {
+            if (word.isBlank()) {
+                continue;
+            }
+            if (word.length() < shortestWord.length()) {
+                shortestWord = word;
+            } else if (word.length() > longestWord.length()) {
+                longestWord = word;
             }
         }
 
